@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Welcome to the App!</title>
+        <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
+    </head>
+    <body>
+        <h1>Welcome to the App!</h1>
+        <script>
+            const { Client, Account, ID, OAuthProvider } = Appwrite;
+
+            const client = new Client()
+                .setEndpoint('https://appwrite.dev1.ey4.de/v1') // Your API Endpoint
+                .setProject('66a566820018b0969d46');                 // Your project ID
+
+            const account = new Account(client);
+
+            // Go to OAuth provider login page
+            account.createOAuth2Session(
+                OAuthProvider.Github, // provider
+                ['repo', 'user'] // scopes (optional)
+            )
+            account.getSession("current").then(
+                function (session) {
+                account.get().then(
+                function (response) {
+                    console.log("account", response)
+                })
+            })
+
+        </script>
+    </body>
+</html>
