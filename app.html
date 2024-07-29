@@ -14,11 +14,6 @@
 
             const account = new Account(client);
 
-            // Go to OAuth provider login page
-            account.createOAuth2Session(
-                OAuthProvider.Github, // provider
-                ['repo', 'user'] // scopes (optional)
-            )
             account.getSession("current").then(
                 function (session) {
                 account.get().then(
@@ -26,7 +21,16 @@
                     console.log("account", response)
                 })
             })
-
+            .catch((result) => {
+                console.log("result", result);
+                // Go to OAuth provider login page
+                account.createOAuth2Session(
+                    OAuthProvider.Github, // provider
+                    "http://local.dev1.ey4.de:5555/app.html",
+                    "http://local.dev1.ey4.de:5555/?status=error",
+                    ['repo', 'user'] // scopes (optional)
+                )
+            });
         </script>
     </body>
 </html>
